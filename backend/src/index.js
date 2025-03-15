@@ -5,13 +5,13 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 
+import {app,server} from "./lib/socket.js"
 
-import { connect } from 'mongoose';
 import { connectDB } from './lib/db.js';
 
 
 dotenv.config();
-const app = express();
+
 
 
 app.use(express.json());
@@ -27,7 +27,7 @@ app.use("/api/messages",messageRoutes)
 const PORT = process.env.PORT;
 
 //listens on port 5001
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log('Server is running on PORT: '+ PORT);
   connectDB();
 });

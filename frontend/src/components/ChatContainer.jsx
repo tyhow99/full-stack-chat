@@ -1,45 +1,53 @@
+import { useChatStore } from "../store/useChatStore";
 import { useEffect, useRef } from "react";
-import { useChatStore } from "../store/useChatStore.js"
-import ChatHeader from "./ChatHeader.jsx";
-import MessageInput from "./MessageInput.jsx";
-import { useAuthStore } from "../store/useAuthStore.js";
-import MessageSkeleton from "./skeletons/MessageSkeleton.jsx";
-import { formatMessageTime } from "../lib/utils.js";
 
-
+import ChatHeader from "./ChatHeader";
+import MessageInput from "./MessageInput";
+import MessageSkeleton from "./skeletons/MessageSkeleton";
+import { useAuthStore } from "../store/useAuthStore";
+import { formatMessageTime } from "../lib/utils";
 
 const ChatContainer = () => {
-    const {messages, getMessages, isMessagesLoading, selectedUser, subscribeToMessages, unsubscribeFromMessages} = useChatStore();
-    const {authUser} = useAuthStore();
-    const messageEndRef = useRef(null);
+  const {
+    messages,
+    getMessages,
+    isMessagesLoading,
+    selectedUser,
+    subscribeToMessages,
+    unsubscribeFromMessages,
+  } = useChatStore();
+  const { authUser } = useAuthStore();
+  const messageEndRef = useRef(null);
 
-    useEffect(() => {
-        getMessages(selectedUser._id);
-        subscribeToMessages();
+  useEffect(() => {
+    getMessages(selectedUser._id);
 
-        return () => unsubscribeFromMessages();
-    }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages]);
+    subscribeToMessages();
 
-    useEffect(() => {
-      if (messageEndRef.current && messages){
-        messageEndRef.current.scrollIntoView({behavior: "smooth"});
-      }
-    }), [messages]
+    return () => unsubscribeFromMessages();
+  }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages]);
 
-    if(isMessagesLoading)
-      return (
+  useEffect(() => {
+    if (messageEndRef.current && messages) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  if (isMessagesLoading) {
+    return (
       <div className="flex-1 flex flex-col overflow-auto">
         <ChatHeader />
         <MessageSkeleton />
         <MessageInput />
       </div>
     );
-
+  }
 
   return (
-    <div className="flex-1 flex-col overflow-auto">
-        <ChatHeader />
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+    <div className="flex-1 flex flex-col overflow-auto">
+      <ChatHeader />
+
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <div
             key={message._id}
@@ -60,7 +68,7 @@ const ChatContainer = () => {
             </div>
             <div className="chat-header mb-1">
               <time className="text-xs opacity-50 ml-1">
-               {formatMessageTime(message.createdAt)}
+                {formatMessageTime(message.createdAt)}
               </time>
             </div>
             <div className="chat-bubble flex flex-col">
@@ -76,11 +84,9 @@ const ChatContainer = () => {
           </div>
         ))}
       </div>
-        <MessageInput />
+
+      <MessageInput />
     </div>
-  )
-}
-
-export default ChatContainer
-
-
+  );
+};
+export default ChatContainer;

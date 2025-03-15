@@ -13,13 +13,11 @@ const SettingsPage = () => {
   return (
     <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
       <div className="space-y-6">
-        {/* Theme Selection Section */}
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold">Theme</h2>
           <p className="text-sm text-base-content/70">Choose a theme for your chat interface</p>
         </div>
 
-        {/* Theme Buttons */}
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
           {THEMES.map((t) => (
             <button
@@ -59,7 +57,7 @@ const SettingsPage = () => {
                       J
                     </div>
                     <div>
-                      <h3 className="font-medium text-sm">Your Friend</h3>
+                      <h3 className="font-medium text-sm">John Doe</h3>
                       <p className="text-xs text-base-content/70">Online</p>
                     </div>
                   </div>

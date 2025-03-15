@@ -18,8 +18,5 @@
   "bugs": {
     "url": "https://github.com/tyhow99/full-stack-chat/issues"
   },
-  "homepage": "https://github.com/tyhow99/full-stack-chat#readme",
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "*"
-  }
+  "homepage": "https://github.com/tyhow99/full-stack-chat#readme"
 }
